@@ -41,8 +41,8 @@ default['kube-hops']['pki']['ca_api_group']                = "glassfish"
 
 default['kube-hops']['pki']['ca_keypw']                    = "adminpw"
 default['kube-hops']['pki']['rootca_keypw']                = node['hopsworks']['master']['password'].empty? ? "adminpw" : node['hopsworks']['master']['password']
-default['kube-hops']['pki']['dir'] 											 	 = "#{node['kube-hops']['conf_dir']}/pki"
-default['kube-hops']['pki']['keysize']									   = 2048
+default['kube-hops']['pki']['dir'] 						   = "#{node['kube-hops']['conf_dir']}/pki"
+default['kube-hops']['pki']['keysize']					   = 2048
 default['kube-hops']['pki']['days']                        = 3650
 
 default['kube-hops']['pki']['verify_hopsworks_cert']       = "true"
@@ -56,6 +56,10 @@ default['kube-hops']['pull_policy']                        = "Always"
 
 default['kube-hops']['docker_dir']                         = "/var/lib/docker"
 
-default['kube-hops']['docker_img']                         = "logicalclocks/tf,logicalclocks/filebeat"
-default['kube-hops']['docker_img_tar_url']                 = node['download_url'] + "/kube/docker-images/#{node['install']['version']}/docker-images.tar"
+default['kube-hops']['docker_img_version']                 = node['install']['version'].gsub("-SNAPSHOT", "")
+default['kube-hops']['docker_img_tar_url']                 = node['download_url'] + "/kube/docker-images/#{node['kube-hops']['docker_img_version']}/docker-images.tar"
 default['kube-hops']['docker_img_reg_url']                 = ""
+
+default['kube-hops']['imgs']['tf']['version']              = default['kube-hops']['docker_img_version'] 
+default['kube-hops']['imgs']['sklearn']['version']         = default['kube-hops']['docker_img_version'] 
+default['kube-hops']['imgs']['filebeat']['version']        = default['kube-hops']['docker_img_version'] 
