@@ -188,6 +188,9 @@ template "/home/#{node['kube-hops']['user']}/kube-flannel.yml" do
   source "kube-flannel.yml.erb"
   owner node['kube-hops']['user']
   group node['kube-hops']['group']
+  variable ({
+    'ip': private_ip
+  })
 end
 
 # Deploy overlay network
